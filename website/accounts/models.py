@@ -45,3 +45,19 @@ def create_profile(sender, instance,created, **kwargs):
     instance.profile.save()
 
 post_save.connect(create_profile, sender= User)
+
+class UserFuelForm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="related user")
+    gallsRequested = models.IntegerField('Gallons Requested', default=1)
+    deliveryAddress = models.CharField('Delivery Address', max_length=100, default='', blank= True)
+
+    deliveryDate =  models.DateField()
+    suggPrice = models.DecimalField('Suggested Price', decimal_places=7,
+                                max_digits=100, default=Decimal('0.00000'))
+
+    #suggPrice = models.IntegerField("Suggested price/gallon", default =0)
+    total = models.DecimalField('Total (Price * Gallons)', decimal_places=7,
+                                max_digits=100, default=Decimal('0.00000'))  # total will be calculated by (suggPrice*gallsRequested)
+  
+    def __str__(self):
+        return self.user.username

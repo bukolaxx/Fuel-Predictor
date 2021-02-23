@@ -24,7 +24,7 @@ urlpatterns = [
     path('profile/', views.profile, name= 'profile'),
     path('logout/', views.logout_request, name='logout'),
     path('login/', views.login_request, name= 'login'),
-    # path('fuelhistory/', views.fuelhistory, name= 'fuelhistory'),
-    # path('fuelform/', views.fqf, name = 'fuelform')
+    path('fuelhistory/', views.fuelhistory, name= 'fuelhistory'),
+    path('fuelform/', views.fqf, name = 'fuelform')
 
 ]

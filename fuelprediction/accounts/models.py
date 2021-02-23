@@ -23,8 +23,9 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(
         User,
-        null=True,
-        related_name='profile',
+        # null=True,
+        # related_name='profile',
+        # verbose_name="related user",
         on_delete=models.CASCADE,
     )
     Full_Name =models.CharField(max_length=50, default='', blank = False)
@@ -37,15 +38,22 @@ class UserProfile(models.Model):
     def __str__(self):
         return str(self.user)
 
-def create_profile(sender, instance,created, **kwargs):
-    if created:
-        user_profile = UserProfile.objects.create(user=instance)
-
-    instance.profile.save()
+def create_profile(sender, **kwargs):
+    if kwargs['created']:
+        user_profile = UserProfile.objects.create(user=kwargs['instance'])
 
 post_save.connect(create_profile, sender= User)
+# def create_profile(sender, instance,created, **kwargs):
+#     if created:
+#         user_profile = UserProfile.objects.create(user=instance)
+
+#     instance.profile.save()
+
+# post_save.connect(create_profile, sender= User)
 
 class UserFuelForm(models.Model):
+    # user.userprofile
+    # user = models.OneToOneField(User,null=True,related_name = 'profile', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="related user")
     gallsRequested = models.IntegerField('Gallons Requested', default=1)
     deliveryAddress = models.CharField('Delivery Address', max_length=100, default='', blank= True)

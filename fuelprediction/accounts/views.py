@@ -1,10 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect
-from django.contrib.auth.forms import UserCreationForm,  AuthenticationForm , UserChangeForm   
+from django.contrib.auth.forms import UserCreationForm,  AuthenticationForm , UserChangeForm  
 from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
-from .forms import RegistrationForm, EditProfileForm
+from .forms import RegistrationForm, EditProfileForm, FuelQuoteForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, UserFuelForm
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html', {})
@@ -73,3 +74,42 @@ def edit_profile(request):
     return render(request = request,
             template_name = "edit_profile.html",
             context={"form":form})
+def fqf(request):
+    if request.method == 'POST':
+        form = FuelQuoteForm(request.POST, user = request.user)
+        if not form.is_valid():
+            print("something didnt work")
+            #getrid
+                # allObj = UserFuelForm.objects.all()
+                # userObj = UserFuelForm.objects.filter(user = request.user)
+                # if UserFuelForm.objects.filter(user = request.user).exists():
+                #     # at least one object satisfying query exists
+                #     print(userObj)
+                #     PricingModule.RateHistoryFactor = 1.0
+                # else:
+                #     PricingModule.RateHistoryFactor = 2.0
+                #     print("user does not have any history")
+                #     # no object satisfying query exists
+                # print(allObj)
+                # print(userObj)
+        print(request.POST.keys())
+        
+        if 'get_quote' in request.POST.keys():
+            # Get quote button was pressed
+            return render(request=request,
+                    template_name="fuelform.html",
+                    context={"form": form})
+        else:
+            form.save()
+            return redirect('profile')
+
+    elif request.method == 'GET':
+        form = FuelQuoteForm(user=request.user)
+        return render(request=request,
+                    template_name="fuelform.html",
+                    context={"form": form})
+
+
+def fuelhistory(request):
+    history = UserFuelForm.objects.filter(user = request.user)
+    return render(request, 'fuelhistory.html', context={"history": history})

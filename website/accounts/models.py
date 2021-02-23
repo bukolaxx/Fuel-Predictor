@@ -25,6 +25,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         User,
         null=True,
+        related_name='profile',
         on_delete=models.CASCADE,
     )
     Full_Name =models.CharField(max_length=50, default='', blank = False)
@@ -36,8 +37,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return str(self.user)
-
-@receiver(post_save,sender=User)
+ 
 def create_profile(sender, instance,created, **kwargs):
     if created:
         user_profile = UserProfile.objects.create(user=instance)
@@ -60,4 +60,4 @@ class UserFuelForm(models.Model):
                                 max_digits=100, default=Decimal('0.00000'))  # total will be calculated by (suggPrice*gallsRequested)
   
     def __str__(self):
-        return self.user.username
+        return str(self.user)

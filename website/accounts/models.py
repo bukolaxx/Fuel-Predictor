@@ -24,6 +24,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(
         User,
+        null=True,
         on_delete=models.CASCADE,
     )
     Full_Name =models.CharField(max_length=50, default='', blank = False)
@@ -34,11 +35,13 @@ class UserProfile(models.Model):
     Zipcode = models.CharField(max_length=9, blank=False, default='')
 
     def __str__(self):
-        return self.user.username
+        return str(self.user)
 
+@receiver(post_save,sender=User)
+def create_profile(sender, instance,created, **kwargs):
+    if created:
+        user_profile = UserProfile.objects.create(user=instance)
 
-def create_profile(sender, **kwargs):
-    if kwargs['created']:
-        user_profile = UserProfile.objects.create(user=kwargs['instance'])
+    instance.profile.save()
 
 post_save.connect(create_profile, sender= User)

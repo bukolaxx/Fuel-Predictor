@@ -43,13 +43,6 @@ def create_profile(sender, **kwargs):
         user_profile = UserProfile.objects.create(user=kwargs['instance'])
 
 post_save.connect(create_profile, sender= User)
-# def create_profile(sender, instance,created, **kwargs):
-#     if created:
-#         user_profile = UserProfile.objects.create(user=instance)
-
-#     instance.profile.save()
-
-# post_save.connect(create_profile, sender= User)
 
 class UserFuelForm(models.Model):
     # user.userprofile

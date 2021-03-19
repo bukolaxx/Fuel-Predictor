@@ -3,7 +3,7 @@ import unittest
 from django.test import TestCase, Client
 from django.test import RequestFactory
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm,  AuthenticationForm , UserChangeForm   
+from django.contrib.auth.forms import UserCreationForm,  AuthenticationForm , UserChangeForm
 from .models import UserProfile, UserFuelForm
 from .forms import RegistrationForm
 import datetime
@@ -16,7 +16,7 @@ class Test_home(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
-    
+
     def test_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'accounts/home.html')
@@ -30,12 +30,12 @@ class Test_fuelhistory(TestCase):
     def test_template(self):
         response = self.client.get('/fuelhistory/')
         self.assertTemplateUsed(response, 'accounts/fuelhistory.html')
-   
+
 class Test_login(TestCase):
 
     def setUp(self):
         # Create two users
-        test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')        
+        test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')
         test_user1.save()
 
     def test_get(self):
@@ -86,5 +86,3 @@ class Test_register(TestCase):
 
         form = RegistrationForm()
         self.assertFalse(form.is_valid())
-
-

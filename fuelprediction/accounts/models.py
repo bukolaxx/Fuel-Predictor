@@ -81,7 +81,6 @@ class PricingModule:
             return 0.01 
         else:
             return 0.0
-
     def galls_requested_factor(self):
         if int(self.galls_requested) > 1000:
             return 0.02

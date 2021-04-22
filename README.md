@@ -1,9 +1,12 @@
 # Fuel-Predictor
 
-if not installed:\
-$ python -m pip install Django
-\
-created a new folder for project\
-then do this command\
-python -m django startproject name_of_project\
-python manage.py runserver # run website
+What you need to download to run code:
+$python -m pip install Django
+
+Run code:
+$python manage.py runserver # run website
+
+Code Coverage:
+$pip install coverage  (to install coverage testing)
+$coverage run manage.py test 
+$coverage report accounts/tests.py

@@ -76,11 +76,11 @@ class PricingModule:
 
     def rate_history_factor(self):
         doesHistoryExist = UserFuelForm.objects.filter(user=self.user).exists()
-
         if doesHistoryExist:
             return 0.01 
         else:
             return 0.0
+            
     def galls_requested_factor(self):
         if int(self.galls_requested) > 1000:
             return 0.02
@@ -107,7 +107,6 @@ class PricingModule:
         return rounded_margin
     
     def calculate(self):
-        
         result = (self.margin() + self.current_price) * self.galls_requested
         print("result", result)
         return result

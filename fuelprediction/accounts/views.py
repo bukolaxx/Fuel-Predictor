@@ -4,7 +4,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
 from .forms import RegistrationForm, EditProfileForm, FuelQuoteForm
 from django.contrib.auth.models import User
-from .models import UserProfile, UserFuelForm,PricingModule
+from .models import UserProfile, UserFuelForm, PricingModule
 
 # Create your views here.
 def home(request):
@@ -29,6 +29,8 @@ def register(request):
     return render(request = request,
                   template_name = "register.html",
                   context={"form":form})
+
+
 def login_request(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
@@ -74,24 +76,13 @@ def edit_profile(request):
     return render(request = request,
             template_name = "edit_profile.html",
             context={"form":form})
+
+        
 def fqf(request):
     if request.method == 'POST':
         form = FuelQuoteForm(request.POST, user = request.user)
         if not form.is_valid():
             print("something didnt work")
-            #getrid
-                # allObj = UserFuelForm.objects.all()
-                # userObj = UserFuelForm.objects.filter(user = request.user)
-                # if UserFuelForm.objects.filter(user = request.user).exists():
-                #     # at least one object satisfying query exists
-                #     print(userObj)
-                #     PricingModule.RateHistoryFactor = 1.0
-                # else:
-                #     PricingModule.RateHistoryFactor = 2.0
-                #     print("user does not have any history")
-                #     # no object satisfying query exists
-                # print(allObj)
-                # print(userObj)
         print(request.POST.keys())
         
         if 'get_quote' in request.POST.keys():

@@ -59,33 +59,33 @@ class Test_login(TestCase):
         self.assertFalse(form.is_valid())
 
 
-# class Test_register(TestCase):
+class Test_register(TestCase):
 
 
-#     def test_get(self):
-#         response = self.client.get('/register/')
-#         self.assertEqual(response.status_code, 200)
-#         self.assertTemplateUsed(response, 'accounts/register.html')
+    def test_get(self):
+        response = self.client.get('/register/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/register.html')
 
     #not working rn
-    # def test_RegisterSuccess(self):
-    #     response = self.client.post('/register/', {'username': 'testuser2',
-    #     'password1': '1X<ISRUkw+tuK',
-    #     'password2': '1X<ISRUkw+tuK'
-    #     })
-    #     self.assertEqual(response.status_code, 302)
-    #     self.assertRedirects(response, '/login/')
+    def test_RegisterSuccess(self):
+        response = self.client.post('/register/', {'username': 'testuser2',
+        'password1': '1X<ISRUkw+tuK',
+        'password2': '1X<ISRUkw+tuK'
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/login/')
 
-    # def test_RegisterUnsuccess(self):
-    #     response = self.client.post('/register/', {'username':'testuser2',
-    #     'password1':'1X<ISRUkw+tuK',
-    #     'password2': 'wrongpassword' })
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'accounts/register.html')
-    #     self.assertContains(response, 'The two password fields didn’t match.')
+    def test_RegisterUnsuccess(self):
+        response = self.client.post('/register/', {'username':'testuser2',
+        'password1':'1X<ISRUkw+tuK',
+        'password2': 'wrongpassword' })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/register.html')
+        self.assertContains(response, 'The two password fields didn’t match.')
 
-    #     form = RegistrationForm()
-    #     self.assertFalse(form.is_valid())
+        form = RegistrationForm()
+        self.assertFalse(form.is_valid())
         
 class Test_Profile(TestCase):
 
@@ -129,22 +129,22 @@ class Test_editprofile(TestCase):
         #self.assertEqual(response.context['form'], AuthenticationForm())
         self.assertTemplateUsed(response, 'accounts/edit_profile.html')
 
-    # def test_post(self):
-    #     self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
-    #     response = self.client.post('/edit_profile/', {
-    #         'Full_Name': 'test', 
-    #         'Address1': 'test', 
-    #         'City':'test', 
-    #         'State': 'AR',
-    #         'Zipcode':'test' })
-    #     self.assertEqual(response.status_code, 302)
-    #     self.assertRedirects(response, '/profile/')
-    #     var = User.objects.get(username='testuser1')
-    #     self.assertEqual(var.userprofile.Full_Name, 'test')
-    #     self.assertEqual(var.userprofile.Address1, 'test')
-    #     self.assertEqual(var.userprofile.City, 'test')
-    #     self.assertEqual(var.userprofile.State, 'AR')
-    #     self.assertEqual(var.userprofile.Zipcode, 'test')
+    def test_post(self):
+        self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
+        response = self.client.post('/edit_profile/', {
+            'Full_Name': 'test', 
+            'Address1': 'test', 
+            'City':'test', 
+            'State': 'AR',
+            'Zipcode':'test' })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/profile/')
+        var = User.objects.get(username='testuser1')
+        self.assertEqual(var.userprofile.Full_Name, 'test')
+        self.assertEqual(var.userprofile.Address1, 'test')
+        self.assertEqual(var.userprofile.City, 'test')
+        self.assertEqual(var.userprofile.State, 'AR')
+        self.assertEqual(var.userprofile.Zipcode, 'test')
     
 class Test_fqf(TestCase):
     def setUp(self):
@@ -160,24 +160,24 @@ class Test_fqf(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/fuelform.html')
 
-    # def test_post(self):
+    def test_post(self):
 
-    #     self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
-    #     print("client logged in")
-    #     #var = User.objects.get(username='testuser1')
-    #     #var = "test address"
-    #     response = self.client.post('/fuelform/', {
-    #         'user' : self.user.id,
-    #         'gallsRequested' : 2,
-    #         'deliveryDate' :'2020-05-03',
-    #         'suggPrice' : 2,
-    #         'deliveryAddress' : "test address" ,
-    #         'total' : 3.00})
-    #     self.assertEqual(response.status_code, 302)     
-    #     self.assertRedirects(response, '/profile/')
-    #     var = UserFuelForm.objects.get(user =self.user)
-    #     self.assertEqual(var.gallsRequested, 2)
-    #     self.assertEqual(var.deliveryDate, datetime.date(2020, 5, 3))
-    #     self.assertEqual(var.suggPrice, 2)
-    #     self.assertEqual(var.deliveryAddress, 'test address')
-    #     self.assertEqual(var.total, 3.00)
+        self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
+        print("client logged in")
+        #var = User.objects.get(username='testuser1')
+        #var = "test address"
+        response = self.client.post('/fuelform/', {
+            'user' : self.user.id,
+            'gallsRequested' : 2,
+            'deliveryDate' :'2020-05-03',
+            'suggPrice' : 2,
+            'deliveryAddress' : "test address" ,
+            'total' : 3.00})
+        self.assertEqual(response.status_code, 302)     
+        self.assertRedirects(response, '/profile/')
+        var = UserFuelForm.objects.get(user =self.user)
+        self.assertEqual(var.gallsRequested, 2)
+        self.assertEqual(var.deliveryDate, datetime.date(2020, 5, 3))
+        self.assertEqual(var.suggPrice, 2)
+        self.assertEqual(var.deliveryAddress, 'test address')
+        self.assertEqual(var.total, 3.00)

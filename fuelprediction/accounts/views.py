@@ -4,7 +4,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib import messages
 from .forms import RegistrationForm, EditProfileForm, FuelQuoteForm
 from django.contrib.auth.models import User
-from .models import UserProfile, UserFuelForm
+from .models import UserProfile, UserFuelForm,PricingModule
 
 # Create your views here.
 def home(request):

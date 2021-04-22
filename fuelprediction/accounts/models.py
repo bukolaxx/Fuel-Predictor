@@ -61,4 +61,26 @@ class UserFuelForm(models.Model):
   
     def __str__(self):
         return self.user.username
+    
+    
+    
+class PricingModule:
+    def __init__(self, galls_req, user):
+        self.current_price = 1.50
+        self.galls_requested = galls_req
+        self.user = user
+
+    def state_factor(self):
+        if self.user.userprofile.State == 'TX':
+            return 0.02
+        else:
+            return 0.04
+
+    def rate_history_factor(self):
+        doesHistoryExist = UserFuelForm.objects.filter(user=self.user).exists()
+
+        if doesHistoryExist:
+            return 0.01 
+        else:
+            return 0.0
 # Create your models here.

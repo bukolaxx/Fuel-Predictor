@@ -67,7 +67,7 @@ class Test_register(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/register.html')
 
-    not working rn
+    #not working rn
     def test_RegisterSuccess(self):
         response = self.client.post('/register/', {'username': 'testuser2',
         'password1': '1X<ISRUkw+tuK',

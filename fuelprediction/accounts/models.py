@@ -83,4 +83,35 @@ class PricingModule:
             return 0.01 
         else:
             return 0.0
+    def galls_requested_factor(self):
+        if int(self.galls_requested) > 1000:
+            return 0.02
+        else:
+            return 0.03
+
+    def margin(self):
+        location_factor = self.state_factor()
+        rate_history_factor = self.rate_history_factor()
+        galls_requested_factor = self.galls_requested_factor()
+
+        company_profit_factor = .10
+
+        margin = round((self.current_price * (location_factor - rate_history_factor + galls_requested_factor + company_profit_factor)),3)
+
+        print("location_factor", location_factor)
+        print("ratehistory_factor", rate_history_factor)
+        print("gallrequested_factor", galls_requested_factor)
+
+        rounded_margin = round(margin, 3)
+        print("margin", margin)
+        print("rounded margin", rounded_margin)
+
+        return rounded_margin
+    
+    def calculate(self):
+        
+        result = (self.margin() + self.current_price) * self.galls_requested
+        print("result", result)
+        return result
+
 # Create your models here.

@@ -15,7 +15,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('login')
+            return redirect('home')
 
         else:
             for msg in form.error_messages:
@@ -56,7 +56,7 @@ def login_request(request):
 def logout_request(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
-    return redirect('login')
+    return redirect('home')
 
 def profile(request):
     form = {'user': request.user}
